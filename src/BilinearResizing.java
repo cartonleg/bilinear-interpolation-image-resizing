@@ -69,7 +69,7 @@ public class BilinearResizing {
         return resized;
     }
 
-    public static int[][][] loadBmpToArray(String filePath) throws IOException {
+    public static int[][][] loadImageToArray(String filePath) throws IOException {
         BufferedImage image = ImageIO.read(new File(filePath));
         int height = image.getHeight();
         int width = image.getWidth();
@@ -93,7 +93,7 @@ public class BilinearResizing {
         return imageArray;
     }
 
-    public static void saveArrayToBmp(int[][][] imageArray, String outputPath) throws IOException {
+    public static void saveArrayToImage(int[][][] imageArray, String outputPath, String outputFormat) throws IOException {
         int height = imageArray.length;
         int width = imageArray[0].length;
 
@@ -110,14 +110,14 @@ public class BilinearResizing {
             }
         }
 
-        ImageIO.write(image, "bmp", new File(outputPath));
+        ImageIO.write(image, outputFormat, new File(outputPath));
     }
 
-    public static void resizeBmpFile(String inputPath, String outputPath, int newHeight, int newWidth) throws IOException {
-        int[][][] originalImage = loadBmpToArray(inputPath);
+    public static void resizeBmpFile(String inputPath, String outputPath, String outputFormat, int newHeight, int newWidth) throws IOException {
+        int[][][] originalImage = loadImageToArray(inputPath);
 
         int[][][] resizedImage = resize(originalImage, newHeight, newWidth);
 
-        saveArrayToBmp(resizedImage, outputPath);
+        saveArrayToImage(resizedImage, outputPath, outputFormat);
     }
 }
